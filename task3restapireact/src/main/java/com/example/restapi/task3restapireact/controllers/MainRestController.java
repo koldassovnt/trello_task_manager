@@ -1,11 +1,16 @@
-package com.example.restapi.task3restapireact.rest;
+package com.example.restapi.task3restapireact.controllers;
 
+import com.example.restapi.task3restapireact.dto.UserDTO;
 import com.example.restapi.task3restapireact.entities.CardTasks;
 import com.example.restapi.task3restapireact.entities.Cards;
+import com.example.restapi.task3restapireact.entities.Users;
 import com.example.restapi.task3restapireact.services.CardServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
@@ -70,5 +75,20 @@ public class MainRestController {
         cardTasks.setDone(!cardTasks.isDone());
         cardServices.saveCardTask(cardTasks);
         return ResponseEntity.ok(cardTasks);
+    }
+
+    @GetMapping(value = "/profile")
+    public ResponseEntity<?> profilePage(){
+        Users user = getUser();
+        return new ResponseEntity<>(new UserDTO(user.getId(), user.getEmail(), user.getFullName(), user.getRoles()), HttpStatus.OK);
+    }
+
+    private Users getUser(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(!(authentication instanceof AnonymousAuthenticationToken)){
+            Users user = (Users) authentication.getPrincipal();
+            return user;
+        }
+        return null;
     }
 }

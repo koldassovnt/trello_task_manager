@@ -5,26 +5,29 @@ const ListGroupPage = () => {
 return (
 <MDBContainer>
   <MDBListGroup>
-    <MDBListGroupItem active href="#">
+    <MDBListGroupItem hover href="#">
       <div className="d-flex w-100 justify-content-between">
-        <h5 className="mb-1">List group item heading</h5>
+        <h5 className="mb-1">Quick Access</h5>
       </div>
-      <p className="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius
-        blandit.</p>
+      <p className="mb-1">Fast and easy</p>
     </MDBListGroupItem>
     <MDBListGroupItem hover href="#">
       <div className="d-flex w-100 justify-content-between">
-        <h5 className="mb-1">List group item heading</h5>
+        <h5 className="mb-1">Great Management</h5>
       </div>
-      <p className="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius
-        blandit.</p>
+      <p className="mb-1">Grouping your tasks</p>
     </MDBListGroupItem>
     <MDBListGroupItem hover href="#">
       <div className="d-flex w-100 justify-content-between">
-        <h5 className="mb-1">List group item heading</h5>
+        <h5 className="mb-1">Statistics</h5>
       </div>
-      <p className="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius
-        blandit.</p>
+      <p className="mb-1">Monitoring with your success</p>
+    </MDBListGroupItem>
+    <MDBListGroupItem hover href="#">
+      <div className="d-flex w-100 justify-content-between">
+        <h5 className="mb-1">Cloud Service</h5>
+      </div>
+      <p className="mb-1">Store your data in cloud</p>
     </MDBListGroupItem>
   </MDBListGroup>
 </MDBContainer>

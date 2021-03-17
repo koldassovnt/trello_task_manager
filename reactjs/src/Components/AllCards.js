@@ -9,6 +9,7 @@ import { MDBCol, MDBFormInline, MDBIcon } from "mdbreact";
 
 
 function AllCards() {
+
     const [data, setData] = useState([]);
     const [search, setSearch] = useState("");
     const [filterCards, setFilteredCards] = useState([]);

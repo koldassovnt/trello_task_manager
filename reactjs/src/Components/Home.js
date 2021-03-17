@@ -11,7 +11,7 @@ function Home(params) {
                 <CarouselPage/>
             </Container>
 
-            <Container className="mt-4">
+            <Container className="mt-4 mb-4">
                 <ListGroupPage/>
             </Container>    
         </Container>

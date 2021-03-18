@@ -32,7 +32,7 @@ function CustomNavbar(props) {
             {isLogged ? (
             <Nav className="navlink">
               <Nav.Link href="/allcards">All Cards</Nav.Link>
-              <Nav.Link href="/allcards">{name}</Nav.Link>
+              <Nav.Link href="/profile">{name}</Nav.Link>
               <Form className="logout" inline onSubmit={handleSubmit}>
                 <Button type="submit" size="sm" variant="outline-light">Log Out</Button>
               </Form>

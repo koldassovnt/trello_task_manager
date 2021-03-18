@@ -12,4 +12,5 @@ public interface UserServices extends UserDetailsService {
     boolean deleteUser(Long userId);
     List<Users> usergtList(Long idMin);
     boolean saveUser(Users user);
+    Users editUser(Users user);
 }

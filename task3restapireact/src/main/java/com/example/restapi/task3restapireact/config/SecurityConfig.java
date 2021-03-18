@@ -51,7 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.
                 authorizeRequests().antMatchers(
                         "/auth", "/register", "/api/allcards", "/api/addcard", "/api/detail/{id}",
-                "/api/cardtasks/{id}", "/api/deletecard/{id}", "/updateTask/{id}").
+                "/api/cardtasks/{id}", "/api/deletecard/{id}", "api/updateTask/{id}").
                 permitAll().
                 anyRequest().authenticated().and().
                 exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement().

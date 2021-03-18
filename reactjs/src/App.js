@@ -8,6 +8,7 @@ import CustomNavbar from './Components/CustomNavbar';
 import Home from './Components/Home';
 import Login from './Components/Login';
 import Registration from './Components/Registration';
+import Profile from './Components/Profile';
 import {useCookies} from 'react-cookie';
 
 import {
@@ -69,6 +70,9 @@ function App() {
           </Route>
           <Route path="/detail/:id">
             <Detail/>
+          </Route>
+          <Route path="/profile">
+            <Profile isLogged = {isOnline}/>
           </Route>
           <Route path="/">
             <Home/>

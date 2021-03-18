@@ -1,16 +1,20 @@
 package com.example.restapi.task3restapireact.controllers;
 
+import com.example.restapi.task3restapireact.dto.UpdatePasswordRequest;
 import com.example.restapi.task3restapireact.dto.UserDTO;
 import com.example.restapi.task3restapireact.entities.CardTasks;
 import com.example.restapi.task3restapireact.entities.Cards;
 import com.example.restapi.task3restapireact.entities.Users;
 import com.example.restapi.task3restapireact.services.CardServices;
+import com.example.restapi.task3restapireact.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
@@ -23,6 +27,12 @@ public class MainRestController {
 
     @Autowired
     CardServices cardServices;
+
+    @Autowired
+    private UserServices userService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping(value = "/allcards")
     public ResponseEntity<?> getAllCards(){
@@ -81,6 +91,32 @@ public class MainRestController {
     public ResponseEntity<?> profilePage(){
         Users user = getUser();
         return new ResponseEntity<>(new UserDTO(user.getId(), user.getEmail(), user.getFullName(), user.getRoles()), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/updateName")
+    public ResponseEntity<?> updateUserName(@RequestBody Users reqUser){
+        System.out.println(reqUser);
+        Users user = getUser();
+        System.out.println(user);
+        user.setFullName(reqUser.getFullName());
+        userService.editUser(user);
+        return ResponseEntity.ok("Name changed successfully");
+    }
+
+    @PostMapping("/editPassword")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<?> editPassword(@RequestBody UpdatePasswordRequest passwordRequest){
+        Users user = getUser();
+        if (user != null){
+            if (passwordEncoder.matches(passwordRequest.getOldPassword(), user.getPassword())
+                    && passwordRequest.getNewPassword().equals(passwordRequest.getPasswordConfirm())){
+                user.setPassword(passwordEncoder.encode(passwordRequest.getNewPassword()));
+                userService.editUser(user);
+                return ResponseEntity.ok("Password changed successfully");
+            }
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     private Users getUser(){

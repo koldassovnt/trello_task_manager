@@ -66,6 +66,10 @@ public class UserServiceImpl implements UserServices {
         return true;
     }
 
+    public Users editUser(Users user) {
+        return userRepository.save(user);
+    }
+
     public boolean deleteUser(Long userId) {
         if (userRepository.findById(userId).isPresent()) {
             userRepository.deleteById(userId);
